@@ -1,11 +1,61 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import ContentHeader from '../../components/ContentHeader';
 import FinanceCard from '../../components/FinanceCard';
 import SelectInput from '../../components/SelectInput';
 
+import gains from '../../repositories/gains';
+import expenses from '../../repositories/expenses';
+
 import { Container, Content, Filters } from './styles';
 
-const List: React.FC = () => {
+interface IRouteParams {
+    match: {
+        params: {
+            type: string;
+        }
+    }
+}
+
+interface IData {
+    description: string;
+    amountFormatted: string;
+    frequency: string;
+    dateFormatted: string;
+    tagColor: string;
+}
+
+const List: React.FC<IRouteParams> = ({ match }) => {
+    const [data, setData] = useState<IData[]>([]);
+
+    const { type } = match.params;
+
+    const title = useMemo(() => {
+        return type === 'entry-balance' 
+            ? {
+                title: 'Entradas',
+                lineColor: '#f7931B'
+            } : {
+                title: 'Saídas',
+                lineColor: '#e44C4E'
+            }
+    },[type]);
+
+    const listData = useMemo(() => {
+        return type === 'entry-balance' ? gains : expenses;
+    },[type]);
+
+    useEffect(() => {
+        const response = listData.map(item => {
+            return {
+                description: item.description,
+                amountFormatted: item.amount,
+                frequency: item.frequency,
+                dateFormatted: item.date,
+                tagColor: item.frequency === 'recorrente' ? '#4E41f0' : '#E44C4E'
+            }
+        })
+        setData(response);
+    },[]);
 
     const months = [
         {value: 6, label: 'Junho'},
@@ -19,9 +69,10 @@ const List: React.FC = () => {
         {value: 2019, label: 2019}
     ];
 
+
     return(
         <Container>
-            <ContentHeader title="Saídas" lineColor="#E44C4E">
+            <ContentHeader title={title.title} lineColor={title.lineColor}>
                 <SelectInput options={months}/>
                 <SelectInput options={years}/>
             </ContentHeader>
@@ -43,66 +94,16 @@ const List: React.FC = () => {
             </Filters>
 
             <Content>
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
-                <FinanceCard
-                    tagColor="#E44C4E"
-                    title="Conta de luz"
-                    subtitle="09/06/2021"
-                    amount="R$ 130,00"
-                />
+                {data.map((item, index) => ((
+                    <FinanceCard
+                        key={index}
+                        tagColor={item.tagColor}
+                        title={item.description}
+                        subtitle={item.dateFormatted}
+                        amount={item.amountFormatted}
+                    />
+                )))}
+                
             </Content>
         </Container>
     );
