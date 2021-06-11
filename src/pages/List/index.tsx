@@ -3,21 +3,44 @@ import ContentHeader from '../../components/ContentHeader';
 import FinanceCard from '../../components/FinanceCard';
 import SelectInput from '../../components/SelectInput';
 
-import { Container, Content } from './styles';
+import { Container, Content, Filters } from './styles';
 
 const List: React.FC = () => {
 
-    const options = [
-        {value: 'Fernando', label: 'Fernando'},
-        {value: 'Carla', label: 'Carla'},
-        {value: 'Luciano', label: 'Luciano'}
+    const months = [
+        {value: 6, label: 'Junho'},
+        {value: 5, label: 'Maio'},
+        {value: 4, label: 'Abril'}
+    ];
+
+    const years = [
+        {value: 2021, label: 2021},
+        {value: 2020, label: 2020},
+        {value: 2019, label: 2019}
     ];
 
     return(
         <Container>
             <ContentHeader title="Saídas" lineColor="#E44C4E">
-                <SelectInput options={options}/>
+                <SelectInput options={months}/>
+                <SelectInput options={years}/>
             </ContentHeader>
+
+            <Filters>
+                <button 
+                    type="button"
+                    className="tag-filter tag-filter-recurrent"
+                >
+                    Recorrentes
+                </button>
+
+                <button 
+                    type="button"
+                    className="tag-filter tag-filter-eventual"
+                >
+                    Eventuais
+                </button>
+            </Filters>
 
             <Content>
                 <FinanceCard
