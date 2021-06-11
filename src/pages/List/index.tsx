@@ -7,7 +7,7 @@ import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
 
 import { Container, Content, Filters } from './styles';
-import { formatCurrency, formatDate } from '../../utils/helpers';
+import Months, { formatCurrency, formatDate } from '../../utils/helpers';
 
 interface IRouteParams {
     match: {
@@ -27,6 +27,8 @@ interface IData {
 
 const List: React.FC<IRouteParams> = ({ match }) => {
     const [data, setData] = useState<IData[]>([]);
+    const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth()+1));
+    const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
 
     const { type } = match.params;
 
@@ -45,8 +47,20 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         return type === 'entry-balance' ? gains : expenses;
     },[type]);
 
+    const handleFrequencyClick = (frequency: string) => {
+        
+    }
+
     useEffect(() => {
-        const response = listData.map(item => {
+        const filteredData = listData.filter(item => {
+            const date = new Date(item.date);
+            const month = String(date.getMonth()+1);
+            const year = String(date.getFullYear());
+
+            return month === monthSelected && year === yearSelected;
+        })
+
+        const formattedData = filteredData.map(item => {
             return {
                 description: item.description,
                 amountFormatted: formatCurrency(item.amount),
@@ -55,33 +69,64 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                 tagColor: item.frequency === 'recorrente' ? '#4E41f0' : '#E44C4E'
             }
         })
-        setData(response);
+        setData(formattedData);
+    },[listData, monthSelected, yearSelected]);
+
+
+    const months = useMemo(() => {
+        return Months.map((month, index) => {
+            return {
+                value: index + 1,
+                label: month
+            }
+        });
     },[]);
 
-    const months = [
-        {value: 6, label: 'Junho'},
-        {value: 5, label: 'Maio'},
-        {value: 4, label: 'Abril'}
-    ];
+    const years = useMemo(() => {
+        let uniqueYears: number[] = [];
 
-    const years = [
-        {value: 2021, label: 2021},
-        {value: 2020, label: 2020},
-        {value: 2019, label: 2019}
-    ];
+        listData.forEach(item => {
+            const date = new Date(item.date);
+            const year = date.getFullYear();
+
+            if(!uniqueYears.includes(year)){
+                uniqueYears.push(year)
+            }
+        });
+
+        return uniqueYears.map(year => {
+            return {
+                value: year,
+                label: year
+            }
+        });
+    },[listData]);
 
 
     return(
         <Container>
             <ContentHeader title={title.title} lineColor={title.lineColor}>
-                <SelectInput options={months}/>
-                <SelectInput options={years}/>
+                <SelectInput 
+                    options={months} 
+                    defaultValue={monthSelected}
+                    onChange={(event) => 
+                        setMonthSelected(event.target.value)
+                    } 
+                />
+                <SelectInput 
+                    options={years} 
+                    defaultValue={yearSelected}    
+                    onChange={(event) => 
+                        setYearSelected(event.target.value)
+                    }
+                />
             </ContentHeader>
 
             <Filters>
                 <button 
                     type="button"
                     className="tag-filter tag-filter-recurrent"
+                    onClick={() => handleFrequencyClick('recurrent')}
                 >
                     Recorrentes
                 </button>
@@ -89,6 +134,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                 <button 
                     type="button"
                     className="tag-filter tag-filter-eventual"
+                    onClick={() => handleFrequencyClick('eventual')}
                 >
                     Eventuais
                 </button>
