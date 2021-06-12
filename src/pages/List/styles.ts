@@ -15,6 +15,7 @@ export const Filters = styled.div`
         font-weight: 500;
         background: none;
         color: ${props => props.theme.colors.white};
+        opacity: 0.4;
 
         margin: 0 10px;
 
@@ -26,18 +27,22 @@ export const Filters = styled.div`
     }
 
     .tag-filter-recurrent::after {
-            content: '';
-            display: block;
-            width: 55px;
-            margin: 5px auto;
-            border-bottom: 10px solid ${props => props.theme.colors.succes};
+        content: '';
+        display: block;
+        width: 55px;
+        margin: 5px auto;
+        border-bottom: 10px solid ${props => props.theme.colors.succes};
     }
 
     .tag-filter-eventual::after {
-            content: '';
-            display: block;
-            width: 55px;
-            margin: 5px auto;
-            border-bottom: 10px solid ${props => props.theme.colors.warning};
+        content: '';
+        display: block;
+        width: 55px;
+        margin: 5px auto;
+        border-bottom: 10px solid ${props => props.theme.colors.warning};
+    }
+
+    .tag-selected {
+        opacity: 1;
     }
 `;
