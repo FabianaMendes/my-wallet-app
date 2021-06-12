@@ -1,13 +1,14 @@
 import React, { useMemo, useState, useEffect } from 'react';
+
 import ContentHeader from '../../components/ContentHeader';
 import FinanceCard from '../../components/FinanceCard';
 import SelectInput from '../../components/SelectInput';
 
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
+import Months, { formatCurrency, formatDate } from '../../utils/helpers';
 
 import { Container, Content, Filters } from './styles';
-import Months, { formatCurrency, formatDate } from '../../utils/helpers';
 
 interface IRouteParams {
     match: {
@@ -38,7 +39,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         return transactionType === 'entry-balance' 
             ? {
                 title: 'Entradas',
-                lineColor: '#f7931B',
+                lineColor: '#4E41F0',
                 listData: gains
             } : {
                 title: 'Saídas',
