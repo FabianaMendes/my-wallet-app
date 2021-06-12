@@ -27,13 +27,13 @@ interface IData {
 
 const List: React.FC<IRouteParams> = ({ match }) => {
     const [data, setData] = useState<IData[]>([]);
-    const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth()+1));
-    const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
+    const [monthSelected, setMonthSelected] = useState<number>(new Date().getMonth()+1);
+    const [yearSelected, setYearSelected] = useState<number>(new Date().getFullYear());
     const [selectedFrequency, setSelectedFrequency] = useState(['recorrente', 'eventual']);
 
     const transactionType = match.params.type;
 
-    
+
     const pageData = useMemo(() => {
         return transactionType === 'entry-balance' 
             ? {
@@ -63,8 +63,8 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     useEffect(() => {
         const filteredData = pageData.listData.filter(item => {
             const date = new Date(item.date);
-            const month = String(date.getMonth()+1);
-            const year = String(date.getFullYear());
+            const month = date.getMonth()+1;
+            const year = date.getFullYear();
 
             return month === monthSelected && year === yearSelected && selectedFrequency.includes(item.frequency);
         })
@@ -120,14 +120,14 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                     options={months} 
                     defaultValue={monthSelected}
                     onChange={(event) => 
-                        setMonthSelected(event.target.value)
+                        setMonthSelected(Number(event.target.value))
                     } 
                 />
                 <SelectInput 
                     options={years} 
                     defaultValue={yearSelected}    
                     onChange={(event) => 
-                        setYearSelected(event.target.value)
+                        setYearSelected(Number(event.target.value))
                     }
                 />
             </ContentHeader>
