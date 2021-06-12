@@ -31,22 +31,22 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()));
     const [selectedFrequency, setSelectedFrequency] = useState(['recorrente', 'eventual']);
 
-    const { type } = match.params;
+    const transactionType = match.params.type;
 
-    const title = useMemo(() => {
-        return type === 'entry-balance' 
+    
+    const pageData = useMemo(() => {
+        return transactionType === 'entry-balance' 
             ? {
                 title: 'Entradas',
-                lineColor: '#f7931B'
+                lineColor: '#f7931B',
+                listData: gains
             } : {
                 title: 'Saídas',
-                lineColor: '#e44C4E'
+                lineColor: '#e44C4E',
+                listData: expenses
             }
-    },[type]);
+    },[transactionType]);
 
-    const listData = useMemo(() => {
-        return type === 'entry-balance' ? gains : expenses;
-    },[type]);
 
     const handleFrequencyClick = (frequency: string) => {
         const alreadySelected = selectedFrequency.findIndex(item => item === frequency);
@@ -54,15 +54,14 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         if(alreadySelected >= 0){
             const filtered = selectedFrequency.filter(item => item !== frequency);
             setSelectedFrequency(filtered);
-            console.log('excluído');
         } else {
             setSelectedFrequency((prev) => [...prev, frequency]);
-            console.log('selecionado');
         }
     }
 
+
     useEffect(() => {
-        const filteredData = listData.filter(item => {
+        const filteredData = pageData.listData.filter(item => {
             const date = new Date(item.date);
             const month = String(date.getMonth()+1);
             const year = String(date.getFullYear());
@@ -80,7 +79,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             }
         })
         setData(formattedData);
-    },[listData, monthSelected, yearSelected, selectedFrequency]);
+    },[pageData.listData, monthSelected, yearSelected, selectedFrequency]);
 
 
     const months = useMemo(() => {
@@ -92,10 +91,11 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         });
     },[]);
 
+
     const years = useMemo(() => {
         let uniqueYears: number[] = [];
 
-        listData.forEach(item => {
+        pageData.listData.forEach(item => {
             const date = new Date(item.date);
             const year = date.getFullYear();
 
@@ -110,12 +110,12 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                 label: year
             }
         });
-    },[listData]);
+    },[pageData.listData]);
 
 
     return(
         <Container>
-            <ContentHeader title={title.title} lineColor={title.lineColor}>
+            <ContentHeader title={pageData.title} lineColor={pageData.lineColor}>
                 <SelectInput 
                     options={months} 
                     defaultValue={monthSelected}
