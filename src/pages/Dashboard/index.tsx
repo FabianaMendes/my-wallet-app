@@ -4,6 +4,7 @@ import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox';
 import MessageBox from '../../components/MessageBox';
+import PieChartBox from '../../components/PieChartBox';
 
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
@@ -12,7 +13,6 @@ import Months from '../../utils/helpers';
 import happyImg from '../../assets/happy.svg';
 import shyImg from '../../assets/grinning.svg';
 import sadImg from '../../assets/sad.svg';
-
 
 import { Container, Content } from './styles';
 
@@ -115,6 +115,24 @@ const Dashboard: React.FC = () => {
 
     },[totalBalance]);
 
+    const relationExpensesGains = useMemo(()=> {
+        const total = totalGains + totalExpenses;
+        const percentGains = (totalGains / total)*100;
+        const percentExpenses = (totalExpenses / total)*100;
+        const pieChartData = [
+            {
+                name: "Entradas",
+                percent: Number(percentGains.toFixed(0)),
+                color: '#F7931B'
+            },
+            {
+                name: "Saídas",
+                percent: Number(percentExpenses.toFixed(0)),
+                color: '#E44C4E'
+            }
+        ]
+        return pieChartData;
+    },[totalGains, totalExpenses]);
 
     return(
         <Container>
@@ -164,6 +182,8 @@ const Dashboard: React.FC = () => {
                     footerText={message.footerText}
                     icon={message.icon}
                 />
+
+                <PieChartBox data={relationExpensesGains}/>
             </Content>
             
         </Container>
