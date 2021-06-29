@@ -5,50 +5,49 @@ interface ILegendProps {
 }
 
 export const Container = styled.div`
-    width: 48%;
-    height: 260px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
 
     background-color: ${props => props.theme.colors.tertiary};
     color: ${props => props.theme.colors.white};
 
-    border-radius: 10px;
+    margin: 10px 0;
+    padding: 30px 20px;
 
-    display: flex;
+    border-radius: 10px;
 `;
 
-export const SideLeft = styled.aside`
-    padding: 30px 20px;
+export const ChartContainer = styled.div`
+    width: 100%;
+    height: 360px;
+`;
+
+export const Header = styled.header`
+    width: 100%;
+
+    padding: 0 16px;
+
+    display: flex;
+    justify-content: space-between;
+
     > h2 {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 `;
 
 export const LegendContainer = styled.ul`
     list-style: none;
 
-    height: 170px;
-    padding-right: 15px;
-    overflow-y: scroll;
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: ${props => props.theme.colors.secondary};
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background-color: ${props => props.theme.colors.tertiary};
-    }
+    display: flex;
 `;
 
 export const Legend = styled.li<ILegendProps>`
     display: flex;
     align-items: center;
 
-    margin-bottom: 15px;
+    margin: 0 0 15px 10px;
     font-size: 16px;
 
     > div {
@@ -67,10 +66,4 @@ export const Legend = styled.li<ILegendProps>`
 
         margin-right: 7px;
     }
-`;
-
-export const SideRight = styled.main`
-    display: flex;
-    flex: 1;
-    justify-content: center;
 `;
