@@ -9,20 +9,18 @@ interface IMessageBoxProps {
     icon: string;
 }
 
-const MessageBox: React.FC<IMessageBoxProps> = ({title, description, footerText, icon}) => {
-    return(
-        <Container>
-            <header>
-                <h1>
-                    {title} <img src={icon} alt={title} />
-                </h1>
-                <h2>{description}</h2>
-            </header>
-            <footer>
-                <span>{footerText}</span>
-            </footer>
-        </Container>
-    );
-}
+const MessageBox: React.FC<IMessageBoxProps> = ({title, description, footerText, icon}) => (
+    <Container>
+        <header>
+            <h1>
+                {title} <img src={icon} alt={title} />
+            </h1>
+            <h2>{description}</h2>
+        </header>
+        <footer>
+            <span>{footerText}</span>
+        </footer>
+    </Container>
+);
 
 export default MessageBox;

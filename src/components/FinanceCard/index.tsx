@@ -9,22 +9,15 @@ interface IFinanceCard {
     amount: string;
 }
 
-const FinanceCard: React.FC<IFinanceCard> = ({
-    tagColor,
-    title,
-    subtitle,
-    amount
-}) => {
-    return(
-        <Container>
-            <Tag color={tagColor}/>
-                <div>
-                    <strong>{title}</strong>
-                    <small>{subtitle}</small>
-                </div>
-                <h3>{amount}</h3>
-        </Container>
-    );
-}
+const FinanceCard: React.FC<IFinanceCard> = ({ tagColor, title, subtitle, amount }) => (
+    <Container>
+        <Tag color={tagColor}/>
+            <div>
+                <strong>{title}</strong>
+                <small>{subtitle}</small>
+            </div>
+            <h3>{amount}</h3>
+    </Container>
+);
 
 export default FinanceCard;

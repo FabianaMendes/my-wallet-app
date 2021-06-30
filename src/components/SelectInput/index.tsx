@@ -11,22 +11,21 @@ interface ISelectInputProps {
     onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined;
 }
 
-const SelectInput: React.FC<ISelectInputProps> = ({ options, defaultValue, onChange }) => {
-    return(
-        <Container>
-            <select onChange={onChange} defaultValue={defaultValue}>
-                { options.map(option => (
-                    <option 
-                    key={option.value}
-                    value={option.value}
-                    >
-                        {option.label}
-                    </option>
-                ))
-                }
-            </select>
-        </Container>
-    );
-}
+const SelectInput: React.FC<ISelectInputProps> = ({ options, defaultValue, onChange }) => (
+    <Container>
+        <select onChange={onChange} defaultValue={defaultValue}>
+            { options.map(option => (
+                <option 
+                key={option.value}
+                value={option.value}
+                >
+                    {option.label}
+                </option>
+            ))
+            }
+        </select>
+    </Container>
+);
+
 
 export default SelectInput;

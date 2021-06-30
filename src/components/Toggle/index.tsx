@@ -6,21 +6,17 @@ import {
     ToggleSelector 
 } from './styles';
 
-const Toggle: React.FC = () => {
+const Toggle: React.FC = () => (
+    <Container>
+        <ToggleLabel>Light</ToggleLabel>
+        <ToggleSelector 
+            checked
+            uncheckedIcon={false}
+            checkedIcon={false}
+            onChange={() => console.log('mudou')}
+        />
+        <ToggleLabel>Dark</ToggleLabel>
+    </Container>
+);
 
-    const [theme, setTheme] = useState(true);
-    
-    return (
-        <Container>
-            <ToggleLabel>Light</ToggleLabel>
-            <ToggleSelector 
-                checked={theme}
-                uncheckedIcon={false}
-                checkedIcon={false}
-                onChange={() => setTheme(!theme)}
-            />
-            <ToggleLabel>Dark</ToggleLabel>
-        </Container>
-    );
-}
 export default Toggle;
