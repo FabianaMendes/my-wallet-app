@@ -1,6 +1,6 @@
 <h1 align="center">My Wallet App</h1>
 
-<img align="center" alt="my-wallet-app" src="./src/assets/my-wallet.gif">
+<img align="center" alt="my-wallet-app" src="./src/assets/mywallet.gif">
 
 <p align="center" >  
     <a href="#descrição">Descrição</a> • 
@@ -16,7 +16,7 @@
 - Temos uma tela inicial com formulário de login, após login o usuário é encaminhado para a página principal com Dashboard onde são exibidos gráficos com resumos de transações por período. Temos também as páginas de entradas e saídas, onde são listadas por mês e ano, podendo ainda utilizar o filtro  "recorrente/eventual" em cada uma delas
 - [Clique aqui](https://www.figma.com/file/nOGmUkhcINJt6nd57R4ENu/Minha-Carteira?node-id=3%3A561) para ver o layout de referência utilizado para a construção da interface de usuário
 - Você pode conferir o app em produção clicando [aqui!](https://my-wallet-fabiana.netlify.app/)
-❗❗❗_ATENÇÃO! Para logar utilize os seguintes dados: **e-mail: mywallet@gmail, senha: 123**_❗❗❗
+- ❗ ATENÇÃO! ❗ _Para logar utilize os seguintes dados: **e-mail: mywallet@gmail, senha: 123**_
 
 
 
