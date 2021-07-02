@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logo from '../../assets/logo.svg';
+import Toggle from '../Toggle';
 
 import { useAuth } from '../../hooks/auth';
+import { useTheme } from '../../hooks/theme';
 
 import {
     MdDashboard,
     MdArrowUpward,
     MdArrowDownward,
-    MdExitToApp
+    MdExitToApp, 
+    MdClose,
+    MdMenu
 } from 'react-icons/md';
 
 import { 
@@ -18,17 +22,33 @@ import {
     MenuContainer,
     MenuItemLink,
     Title, 
-    MenuItemButton
+    MenuItemButton, 
+    ToggleMenu,
+    ThemeToggleFooter
 } from './styles';
 
 const Aside: React.FC = () => {
     const { signOut } = useAuth();
+    const { toggleTheme, theme } = useTheme();
+
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+    const [darkTheme, setDarkTheme] = useState(() => theme.title === 'dark' ? true : false);
+
+    const handleChangeTheme = () => {
+        setDarkTheme(!darkTheme);
+        toggleTheme();
+    }
+
 
     return(
-        <Container>
+        <Container menuIsOpen={menuIsOpen}>
             <Header>
+                <ToggleMenu onClick={() => setMenuIsOpen(!menuIsOpen)}>
+                    {menuIsOpen ? <MdClose/> : <MdMenu/> }
+                </ToggleMenu>
+
                 <LogoImg src={logo} alt="logo-my-wallet" />
-                <Title>My Wallet</Title>
+                <Title menuIsOpen={menuIsOpen}>My Wallet</Title>
             </Header>
 
             <MenuContainer>
@@ -52,6 +72,15 @@ const Aside: React.FC = () => {
                     Sair
                 </MenuItemButton>
             </MenuContainer>
+
+            <ThemeToggleFooter menuIsOpen={menuIsOpen}>
+                <Toggle 
+                    labelLeft="Light"
+                    labelRight="Dark"
+                    checked={darkTheme}
+                    onChange={handleChangeTheme}
+                />
+            </ThemeToggleFooter>
         </Container>
     );
 }
