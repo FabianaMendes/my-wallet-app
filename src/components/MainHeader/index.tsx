@@ -7,6 +7,7 @@ import { useTheme } from '../../hooks/theme';
 
 import { 
     Container,
+    ToggleContainer,
     Profile,
     Welcome,
     UserName 
@@ -29,12 +30,14 @@ const MainHeader: React.FC = () => {
 
     return(
         <Container>
-            <Toggle 
-                labelLeft="Light"
-                labelRight="Dark"
-                checked={darkTheme}
-                onChange={handleChangeTheme}
-            />
+            <ToggleContainer>
+                <Toggle 
+                    labelLeft="Light"
+                    labelRight="Dark"
+                    checked={darkTheme}
+                    onChange={handleChangeTheme}
+                />
+            </ToggleContainer>
 
             <Profile>
                 <Welcome>Olá, {emoji}</Welcome>

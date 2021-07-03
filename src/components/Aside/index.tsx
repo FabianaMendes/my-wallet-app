@@ -71,6 +71,7 @@ const Aside: React.FC = () => {
                     <MdExitToApp/>
                     Sair
                 </MenuItemButton>
+
             </MenuContainer>
 
             <ThemeToggleFooter menuIsOpen={menuIsOpen}>

@@ -65,6 +65,10 @@ export const LegendContainer = styled.ul`
     ::-webkit-scrollbar-track {
         background-color: ${props => props.theme.colors.tertiary};
     }
+
+    @media(max-width: 770px){
+        height: fit-content;
+    }
 `;
 
 export const Legend = styled.li<ILegendProps>`

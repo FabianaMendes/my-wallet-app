@@ -21,8 +21,8 @@ export const Container = styled.div<IContainerProps>`
         z-index: 2;
 
         width: 190px;
-
         height: ${props => props.menuIsOpen ? '100vh' : '70px' };
+
         overflow: hidden;
 
         ${props => !props.menuIsOpen && css `
@@ -134,12 +134,12 @@ export const MenuItemButton = styled.button`
 
 export const ThemeToggleFooter = styled.footer<IContainerProps>`
     display: none;
-    position: absolute;
-    bottom: 25px;
-
+    
     @media(max-width: 770px){
         ${props => props.menuIsOpen && css`
-            display: block;
+            display: flex;
+            position: absolute;
+            bottom: 85px;
         `};
     }
 `;

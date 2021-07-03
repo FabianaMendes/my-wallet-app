@@ -47,6 +47,13 @@ export const SideLeft = styled.aside`
         padding-left: 16px;
     }
 
+    @media(max-width: 770px){
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
     @media(max-width: 420px){
         padding-right: 0;
     }
@@ -75,6 +82,11 @@ export const LegendContainer = styled.ul`
 
     ::-webkit-scrollbar-track {
         background-color: ${props => props.theme.colors.tertiary};
+    }
+
+    @media(max-width: 770px){
+        height: fit-content;
+        padding: 0;
     }
 `;
 

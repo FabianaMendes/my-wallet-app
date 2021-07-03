@@ -12,6 +12,22 @@ export const Container = styled.div`
     border-bottom: 1px solid ${props => props.theme.colors.gray};
 
     background-color: ${props => props.theme.colors.secondary};
+
+    @media(max-width: 770px){
+        justify-content: flex-end;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        height: 70px;
+        width: 100%;
+    }
+`;
+
+export const ToggleContainer = styled.div`
+    @media(max-width: 770px){
+        display: none;
+    }
 `;
 
 export const Profile = styled.div`

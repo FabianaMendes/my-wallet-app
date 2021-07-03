@@ -15,8 +15,8 @@ export const Grid = styled.div`
         grid-template-rows: 70px auto;
 
         grid-template-areas: 
-        'MH'
-        'CT';
+        'AS MH'
+        'CT CT';
     }
 `;
 
